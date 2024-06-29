@@ -232,9 +232,9 @@ public:
         consensus.nCoinbaseMaturity = 100;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
-        consensus.nMaxMoneyOut = 21000000 * COIN;
-        consensus.nMNCollateralAmt = 10000 * COIN;
-        consensus.nMNBlockReward = 3 * COIN;
+        consensus.nMaxMoneyOut = 100000000000 * COIN;
+        consensus.nMNCollateralAmt = 1000000 * COIN;
+        consensus.nMNBlockReward = 250 * COIN;
         consensus.nNewMNBlockReward = 6 * COIN;
         consensus.nMNCollateralMinConf = 15;
         consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
@@ -396,9 +396,9 @@ public:
         consensus.nCoinbaseMaturity = 15;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
-        consensus.nMaxMoneyOut = 21000000 * COIN;
-        consensus.nMNCollateralAmt = 10000 * COIN;
-        consensus.nMNBlockReward = 3 * COIN;
+        consensus.nMaxMoneyOut = 100000000000 * COIN;
+        consensus.nMNCollateralAmt = 1000000 * COIN;
+        consensus.nMNBlockReward = 250 * COIN;
         consensus.nNewMNBlockReward = 6 * COIN;
         consensus.nMNCollateralMinConf = 15;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
@@ -434,7 +434,7 @@ public:
         consensus.ZC_MinMintConfirmations = 20;
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1508214600;        // October 17, 2017 4:30:00 AM
+        consensus.ZC_TimeStart = 1719832800;        // October 17, 2017 4:30:00 AM
 
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight =
@@ -462,42 +462,40 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0xf5;
-        pchMessageStart[1] = 0xe6;
-        pchMessageStart[2] = 0xd5;
-        pchMessageStart[3] = 0xca;
+        pchMessageStart[0] = 0xae;
+        pchMessageStart[1] = 0xaf;
+        pchMessageStart[2] = 0xef;
+        pchMessageStart[3] = 0xbe;
         nDefaultPort = 51474;
 
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("pivx-testnet.seed.fuzzbawls.pw", true);
-        vSeeds.emplace_back("pivx-testnet.seed2.fuzzbawls.pw", true);
+        vSeeds.emplace_back("tnseed.cryptodevworks.com", true);
+        vSeeds.emplace_back("tnseed2.cryptodevworks.com", true);
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet pivx addresses start with 'x' or 'y'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet pivx script addresses start with '8' or '9'
-        base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 73);     // starting with 'W'
-        base58Prefixes[EXCHANGE_ADDRESS] = {0x01, 0xb9, 0xb1};   // EXT prefix for the address
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
-        // Testnet pivx BIP32 pubkeys start with 'DRKV'
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x3a, 0x80, 0x61, 0xa0};
-        // Testnet pivx BIP32 prvkeys start with 'DRKP'
-        base58Prefixes[EXT_SECRET_KEY] = {0x3a, 0x80, 0x58, 0x37};
-        // Testnet pivx BIP44 coin type is '1' (All coin's testnet default)
-        base58Prefixes[EXT_COIN_TYPE] = {0x80, 0x00, 0x00, 0x01};
+        // Base58 prefixes
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet DogeExtreme addresses start with 'T'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 178); // Testnet DogeExtreme script addresses start with 't'
+        base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 75); // starting with 'X'
+        base58Prefixes[EXCHANGE_ADDRESS] = std::vector<unsigned char>(1, 88); // starting with 'E'
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239); // Testnet private keys start with '9' or 'c'
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // Testnet BIP32 pubkeys start with 'tpub'
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // Testnet BIP32 prvkeys start with 'tprv'
+        base58Prefixes[EXT_COIN_TYPE] = {0x80, 0x00, 0x00, 0x01}; // Testnet BIP44 coin type is '1' (All coin's testnet default)
 
         vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
 
         fRequireStandard = false;
 
         // Sapling
-        bech32HRPs[SAPLING_PAYMENT_ADDRESS]      = "ptestsapling";
-        bech32HRPs[SAPLING_FULL_VIEWING_KEY]     = "pviewtestsapling";
-        bech32HRPs[SAPLING_INCOMING_VIEWING_KEY] = "pivktestsapling";
-        bech32HRPs[SAPLING_EXTENDED_SPEND_KEY]   = "p-secret-spending-key-test";
-        bech32HRPs[SAPLING_EXTENDED_FVK]         = "pxviewtestsapling";
+        bech32HRPs[SAPLING_PAYMENT_ADDRESS] = "dogxtestsapling";
+        bech32HRPs[SAPLING_FULL_VIEWING_KEY] = "dogxviewtestsapling";
+        bech32HRPs[SAPLING_INCOMING_VIEWING_KEY] = "dogxivktestsapling";
+        bech32HRPs[SAPLING_EXTENDED_SPEND_KEY] = "dogx-secret-spending-key-test";
+        bech32HRPs[SAPLING_EXTENDED_FVK] = "dogxxviewtestsapling";
 
-        bech32HRPs[BLS_SECRET_KEY]               = "bls-sk-test";
-        bech32HRPs[BLS_PUBLIC_KEY]               = "bls-pk-test";
-
+        bech32HRPs[BLS_SECRET_KEY] = "dogx-bls-sk-test";
+        bech32HRPs[BLS_PUBLIC_KEY] = "dogx-bls-pk-test";
+        
         // long living quorum params
         consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
         consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
